@@ -3,8 +3,10 @@ package br.com.nrc.tiabete.entity;
 import java.io.Serializable;
 import java.util.Calendar;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,6 +25,10 @@ public class ValorGlicemico implements Serializable {
 	@Column(name = "cd_valor_glicemico")
 	private int codigo;
 
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "cd_usuario")
+	private Dependente dependente;
+
 	@Column(name = "ds_valor_glicemico", length = 150)
 	private String descricao;
 
@@ -31,10 +37,6 @@ public class ValorGlicemico implements Serializable {
 
 	@Column(name = "vl_medicao")
 	private double medicao;
-
-	@ManyToOne
-	@JoinColumn(name = "cd_usuario")
-	private Dependente dependente;
 
 	public int getCodigo() {
 		return codigo;

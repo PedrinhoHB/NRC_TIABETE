@@ -3,8 +3,10 @@ package br.com.nrc.tiabete.entity;
 import java.io.Serializable;
 import java.util.Calendar;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,7 +20,7 @@ import javax.persistence.TemporalType;
 @Entity(name = "HorarioAplicacao")
 @Table(name = "T_NRC_HORARIO_APLICACAO")
 @SequenceGenerator(name = "horarioAplicacao", sequenceName = "SQ_T_NRC_HORA_APLICACAO", allocationSize = 1)
-public class HorarioAplicacao implements Serializable{
+public class HorarioAplicacao implements Serializable {
 
 	@Id
 	@GeneratedValue(generator = "horarioAplicacao", strategy = GenerationType.SEQUENCE)
@@ -32,7 +34,7 @@ public class HorarioAplicacao implements Serializable{
 	@Column(name = "vl_dose")
 	private double dose;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "cd_aplicacao")
 	private Aplicacao aplicacao;
 
