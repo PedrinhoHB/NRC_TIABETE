@@ -19,7 +19,7 @@ import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.core.Response.Status;
 
-import br.com.nrc.tiabete.dao.ValorGlicemidoDAO;
+import br.com.nrc.tiabete.dao.ValorGlicemicoDAO;
 import br.com.nrc.tiabete.dao.impl.ValorGlicemicoDAOImpl;
 import br.com.nrc.tiabete.entity.ValorGlicemico;
 import br.com.nrc.tiabete.exception.CommitException;
@@ -28,7 +28,7 @@ import br.com.nrc.tiabete.singleton.EntityManagerFactorySingleton;
 
 @Path("/valor-glicemico")
 public class ValorGlicemicoResource {
-	private ValorGlicemidoDAO dao;
+	private ValorGlicemicoDAO dao;
 
 	public ValorGlicemicoResource() {
 		EntityManager em = EntityManagerFactorySingleton.getInstance().createEntityManager();

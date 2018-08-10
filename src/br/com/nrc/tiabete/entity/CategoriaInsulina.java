@@ -10,16 +10,19 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity(name = "CategoriaInsulina")
-@Table(name= "T_NRC_CATEGORIA_INSULINA")
+@Table(name = "T_NRC_CATEGORIA_INSULINA")
 @SequenceGenerator(name = "categoria_insulina", sequenceName = "SQ_T_NRC_CATEGORIA_INSULINA", allocationSize = 1)
-public class CategoriaInsulina implements Serializable{
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+public class CategoriaInsulina implements Serializable {
 
 	@Id
 	@Column(name = "cd_categoria_insulina")
 	@GeneratedValue(generator = "categoria_insulina", strategy = GenerationType.SEQUENCE)
 	private int codigo;
-	
+
 	@Column(name = "ds_categoria_insulina", length = 150)
 	private String descricao;
 
@@ -38,7 +41,5 @@ public class CategoriaInsulina implements Serializable{
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	
-	
-	
+
 }

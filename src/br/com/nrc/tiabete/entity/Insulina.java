@@ -19,7 +19,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Entity(name = "Insulina")
 @Table(name = "T_NRC_INSULINA")
 @SequenceGenerator(name = "insulina", sequenceName = "SQ_T_NRC_INSULINA", allocationSize = 1)
-@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Insulina implements Serializable {
 
 	@Id

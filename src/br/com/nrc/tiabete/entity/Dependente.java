@@ -21,7 +21,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Entity(name = "Dependente")
 @Table(name = "T_NRC_DEPENDENTE")
 @PrimaryKeyJoinColumn(name = "cd_usuario")
-@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Dependente extends Usuario implements Serializable {
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "cd_tipo_diabete")
