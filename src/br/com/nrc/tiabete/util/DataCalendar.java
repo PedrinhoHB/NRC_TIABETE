@@ -1,5 +1,6 @@
 package br.com.nrc.tiabete.util;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -8,7 +9,9 @@ import java.util.Map;
 public class DataCalendar {
 	private Calendar calendar;
 
-	public Map<String, Integer> getDataAtual() {
+	private DateFormat df;
+
+	public Map<String, Integer> getDataHoraAtual() {
 		Map<String, Integer> data = new HashMap<String, Integer>();
 		calendar = Calendar.getInstance();
 
@@ -22,6 +25,30 @@ public class DataCalendar {
 		return data;
 	}
 
+	// TODO Testar com os dados do banco
+	public String formatar(Calendar calendar, String formato) {
+		df = new SimpleDateFormat(formato);
+		return df.format(calendar.getTime());
+	}
+
+	// TODO Testar com os dados do banco
+	public String formataData(Calendar calendar) {
+		df = new SimpleDateFormat("dd-MM-yyyy");
+		return df.format(calendar.getTime());
+	}
+
+	// TODO Testar com os dados do banco
+	public String formataHora(Calendar calendar) {
+		df = new SimpleDateFormat("hh:mm:ss");
+		return df.format(calendar.getTime());
+	}
+
+	// TODO Testar com os dados do banco
+	public String formataDataHora(Calendar calendar) {
+		df = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
+		return df.format(calendar.getTime());
+	}
+
 	public Calendar getCalendar() {
 		return calendar;
 	}
@@ -30,4 +57,11 @@ public class DataCalendar {
 		this.calendar = calendar;
 	}
 
+	public DateFormat getDf() {
+		return df;
+	}
+
+	public void setDf(DateFormat df) {
+		this.df = df;
+	}
 }

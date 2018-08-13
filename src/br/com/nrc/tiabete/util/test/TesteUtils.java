@@ -10,10 +10,10 @@ public class TesteUtils {
 
 		DataCalendar f = new DataCalendar();
 		System.out.println(
-				f.getDataAtual().get("Dia") + "/" + f.getDataAtual().get("Mes") + "/" + f.getDataAtual().get("Ano"));
+				f.getDataHoraAtual().get("Dia") + "/" + f.getDataHoraAtual().get("Mes") + "/" + f.getDataHoraAtual().get("Ano"));
 
-		System.out.println(f.getDataAtual().get("Hora") + ":" + f.getDataAtual().get("Minuto") + ":"
-				+ f.getDataAtual().get("Segundo"));
+		System.out.println(f.getDataHoraAtual().get("Hora") + ":" + f.getDataHoraAtual().get("Minuto") + ":"
+				+ f.getDataHoraAtual().get("Segundo"));
 
 		Calendar ca = new GregorianCalendar(1997, 6, 4, 20, 30, 40);
 		System.out.println(ca.getTime());

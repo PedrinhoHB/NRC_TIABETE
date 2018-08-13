@@ -32,8 +32,8 @@ public class RefeicaoTeste {
 		refeicao.setAlimento(alimento);
 		refeicao.setDataRefeicao((new GregorianCalendar(1998,Calendar.APRIL,27)));
 		refeicao.setDependente(dependente);
-		refeicao.setHora((new GregorianCalendar(dc.getDataAtual()
-				.get("Ano"),dc.getDataAtual().get("Mes"),dc.getDataAtual().get("Dia")
+		refeicao.setHora((new GregorianCalendar(dc.getDataHoraAtual()
+				.get("Ano"),dc.getDataHoraAtual().get("Mes"),dc.getDataHoraAtual().get("Dia")
 				,20,18,00)));
 		refeicao.setQuantidadeRefeicao(40);
 		refeicao.setTipoRefeicao(tipoRefeicao);

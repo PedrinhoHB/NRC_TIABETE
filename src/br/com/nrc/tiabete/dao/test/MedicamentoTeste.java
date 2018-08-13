@@ -30,8 +30,8 @@ public class MedicamentoTeste {
 		
 		medicamento.setDependente(dependente);
 		medicamento.setPeriodo("Diurno");
-		medicamento.setHorario((new GregorianCalendar(dc.getDataAtual()
-				.get("Ano"),dc.getDataAtual().get("Mes"),dc.getDataAtual().get("Dia")
+		medicamento.setHorario((new GregorianCalendar(dc.getDataHoraAtual()
+				.get("Ano"),dc.getDataHoraAtual().get("Mes"),dc.getDataHoraAtual().get("Dia")
 				,20,18,00)));
 		medicamento.setRemedio(remedio);
 		

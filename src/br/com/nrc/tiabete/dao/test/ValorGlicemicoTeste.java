@@ -28,8 +28,8 @@ public class ValorGlicemicoTeste {
 		
 		valorGlicemico.setDependente(dependente);
 		valorGlicemico.setDescricao("ta bom");
-		valorGlicemico.setHora(new GregorianCalendar(dc.getDataAtual()
-				.get("Ano"),dc.getDataAtual().get("Mes"),dc.getDataAtual().get("Dia")
+		valorGlicemico.setHora(new GregorianCalendar(dc.getDataHoraAtual()
+				.get("Ano"),dc.getDataHoraAtual().get("Mes"),dc.getDataHoraAtual().get("Dia")
 				,20,18,00));
 		valorGlicemico.setMedicao(2.0);
 		

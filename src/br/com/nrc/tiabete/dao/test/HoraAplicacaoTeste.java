@@ -28,8 +28,8 @@ public class HoraAplicacaoTeste {
 		horarioAplicacao.setDose(2.0);
 		
 		DataCalendar dc = new DataCalendar();
-		horarioAplicacao.setHoraAplicacao(new GregorianCalendar(dc.getDataAtual()
-				.get("Ano"),dc.getDataAtual().get("Mes"),dc.getDataAtual().get("Dia")
+		horarioAplicacao.setHoraAplicacao(new GregorianCalendar(dc.getDataHoraAtual()
+				.get("Ano"),dc.getDataHoraAtual().get("Mes"),dc.getDataHoraAtual().get("Dia")
 				,20,18,00)); 
 		horarioAplicacao.setAplicacao(aplicacao); 
 		
