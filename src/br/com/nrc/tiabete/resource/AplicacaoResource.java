@@ -2,7 +2,6 @@ package br.com.nrc.tiabete.resource;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -19,41 +18,37 @@ import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.core.Response.Status;
 
-import br.com.nrc.tiabete.dao.AplicacaoDAO;
-import br.com.nrc.tiabete.dao.impl.AplicacaoDAOImpl;
+import br.com.nrc.tiabete.bo.AplicacaoBO;
 import br.com.nrc.tiabete.entity.Aplicacao;
 import br.com.nrc.tiabete.exception.CommitException;
 import br.com.nrc.tiabete.exception.KeyNotFoundException;
-import br.com.nrc.tiabete.singleton.EntityManagerFactorySingleton;
 
 @Path("/aplicacao")
 public class AplicacaoResource {
-	private AplicacaoDAO dao;
+	private AplicacaoBO bo;
 
 	public AplicacaoResource() {
-		EntityManager em = EntityManagerFactorySingleton.getInstance().createEntityManager();
-		dao = new AplicacaoDAOImpl(em);
+		bo = new AplicacaoBO();
 	}
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Aplicacao> listar() {
-		return dao.listar();
+		return bo.listar();
 	}
 
 	@GET
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Aplicacao pesquisar(@PathParam("id") int codigo) {
-		return dao.pesquisar(codigo);
+		return bo.pesquisar(codigo);
 	}
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response cadastrar(Aplicacao aplicacao, @Context UriInfo uri) {
 		try {
-			dao.inserir(aplicacao);
-			dao.commit();
+			bo.inserir(aplicacao);
 		} catch (CommitException e) {
 			e.printStackTrace();
 			return Response.serverError().build();
@@ -68,10 +63,8 @@ public class AplicacaoResource {
 	@Path("{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response atualizar(Aplicacao aplicacao, @PathParam("id") int codigo) {
-		aplicacao.setCodigo(codigo);
-		dao.atualizar(aplicacao);
 		try {
-			dao.commit();
+			bo.atualizar(aplicacao, codigo);
 		} catch (CommitException e) {
 			e.printStackTrace();
 			return Response.serverError().build();
@@ -84,8 +77,7 @@ public class AplicacaoResource {
 	@Path("{id}")
 	public void deletar(@PathParam("id") int codigo) {
 		try {
-			dao.remover(codigo);
-			dao.commit();
+			bo.remover(codigo);
 		} catch (CommitException e) {
 			e.printStackTrace();
 			throw new WebApplicationException(Status.INTERNAL_SERVER_ERROR);
