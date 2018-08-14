@@ -17,18 +17,19 @@ public class DependenteDAOImpl extends GenericDAOImpl<Dependente, Integer> imple
 
 	public void insereComDtCriacao(Dependente dependente) throws CommitException {
 		DataCalendar dc = new DataCalendar();
-		dependente.setDataCriacao(new GregorianCalendar(dc.getDataHoraAtual().get("Ano"), dc.getDataHoraAtual().get("Mes"),
-				dc.getDataHoraAtual().get("Dia"), dc.getDataHoraAtual().get("Hora"), dc.getDataHoraAtual().get("Minuto"),
-				dc.getDataHoraAtual().get("Segundo")));
+		dependente.setDataCriacao(new GregorianCalendar(dc.getDataHoraAtual().get("Ano"),
+				dc.getDataHoraAtual().get("Mes"), dc.getDataHoraAtual().get("Dia"), dc.getDataHoraAtual().get("Hora"),
+				dc.getDataHoraAtual().get("Minuto"), dc.getDataHoraAtual().get("Segundo")));
 		inserir(dependente);
 		commit();
 	}
 
 	public void atualizaComDtUltAlteracao(Dependente dependente, int codigo) throws CommitException {
 		DataCalendar dc = new DataCalendar();
-		dependente.setDataCriacao(new GregorianCalendar(dc.getDataHoraAtual().get("Ano"), dc.getDataHoraAtual().get("Mes"),
-				dc.getDataHoraAtual().get("Dia"), dc.getDataHoraAtual().get("Hora"), dc.getDataHoraAtual().get("Minuto"),
-				dc.getDataHoraAtual().get("Segundo")));
+		dependente.setCodigo(codigo);
+		dependente.setDataCriacao(new GregorianCalendar(dc.getDataHoraAtual().get("Ano"),
+				dc.getDataHoraAtual().get("Mes"), dc.getDataHoraAtual().get("Dia"), dc.getDataHoraAtual().get("Hora"),
+				dc.getDataHoraAtual().get("Minuto"), dc.getDataHoraAtual().get("Segundo")));
 		atualizar(dependente);
 		commit();
 	}

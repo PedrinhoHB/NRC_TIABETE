@@ -59,12 +59,42 @@ public class DependenteResource {
 		return Response.created(builder.build()).build();
 	}
 
+	@POST
+	@Path("/cadastro-dt-atual")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response cadastrarComDtCriacao(Dependente dependente, @Context UriInfo uri) {
+		try {
+			bo.insereComDtCriacao(dependente);
+		} catch (CommitException e) {
+			e.printStackTrace();
+			return Response.serverError().build();
+		}
+
+		UriBuilder builder = uri.getAbsolutePathBuilder();
+		builder.path(String.valueOf(dependente.getCodigo()));
+		return Response.created(builder.build()).build();
+	}
+
 	@PUT
 	@Path("{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response atualizar(Dependente dependente, @PathParam("id") int codigo) {
 		try {
 			bo.atualizar(dependente, codigo);
+		} catch (CommitException e) {
+			e.printStackTrace();
+			return Response.serverError().build();
+		}
+
+		return Response.ok().build();
+	}
+
+	@PUT
+	@Path("/atualiza-dt-atual/{id}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response atualizarComDtUltAtualizacao(Dependente dependente, @PathParam("id") int codigo) {
+		try {
+			bo.atualizaComDtUltAlteracao(dependente, codigo);
 		} catch (CommitException e) {
 			e.printStackTrace();
 			return Response.serverError().build();

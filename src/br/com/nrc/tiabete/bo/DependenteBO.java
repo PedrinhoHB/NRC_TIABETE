@@ -32,9 +32,19 @@ public class DependenteBO {
 		dao.commit();
 	}
 
+	public void insereComDtCriacao(Dependente dependente) throws CommitException {
+		dao.insereComDtCriacao(dependente);
+		dao.commit();
+	}
+
 	public void atualizar(Dependente dependente, int codigo) throws CommitException {
 		dependente.setCodigo(codigo);
 		dao.atualizar(dependente);
+		dao.commit();
+	}
+
+	public void atualizaComDtUltAlteracao(Dependente dependente, int codigo) throws CommitException {
+		dao.atualizaComDtUltAlteracao(dependente, codigo);
 		dao.commit();
 	}
 
