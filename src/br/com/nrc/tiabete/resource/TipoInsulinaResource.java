@@ -2,7 +2,6 @@ package br.com.nrc.tiabete.resource;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -15,45 +14,41 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.UriInfo;
-import javax.ws.rs.core.Response.Status;
 
-import br.com.nrc.tiabete.dao.TipoInsulinaDAO;
-import br.com.nrc.tiabete.dao.impl.TipoInsulinaDAOImpl;
+import br.com.nrc.tiabete.bo.TipoInsulinaBO;
 import br.com.nrc.tiabete.entity.TipoInsulina;
 import br.com.nrc.tiabete.exception.CommitException;
 import br.com.nrc.tiabete.exception.KeyNotFoundException;
-import br.com.nrc.tiabete.singleton.EntityManagerFactorySingleton;
 
 @Path("tipo-insulina")
 public class TipoInsulinaResource {
-	private TipoInsulinaDAO dao;
+	private TipoInsulinaBO bo;
 
 	public TipoInsulinaResource() {
-		EntityManager em = EntityManagerFactorySingleton.getInstance().createEntityManager();
-		dao = new TipoInsulinaDAOImpl(em);
+		bo = new TipoInsulinaBO();
 	}
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<TipoInsulina> listar() {
-		return dao.listar();
+		return bo.listar();
 	}
 
 	@GET
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public TipoInsulina pesquisar(@PathParam("id") int codigo) {
-		return dao.pesquisar(codigo);
+		return bo.pesquisar(codigo);
 	}
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response cadastrar(TipoInsulina tipo, @Context UriInfo uri) {
 		try {
-			dao.inserir(tipo);
-			dao.commit();
+			bo.inserir(tipo);
 		} catch (CommitException e) {
 			e.printStackTrace();
 			return Response.serverError().build();
@@ -68,10 +63,8 @@ public class TipoInsulinaResource {
 	@Path("{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response atualizar(TipoInsulina tipo, @PathParam("id") int codigo) {
-		tipo.setCodigo(codigo);
-		dao.atualizar(tipo);
 		try {
-			dao.commit();
+			bo.atualizar(tipo, codigo);
 		} catch (CommitException e) {
 			e.printStackTrace();
 			return Response.serverError().build();
@@ -84,8 +77,7 @@ public class TipoInsulinaResource {
 	@Path("{id}")
 	public void deletar(@PathParam("id") int codigo) {
 		try {
-			dao.remover(codigo);
-			dao.commit();
+			bo.remover(codigo);
 		} catch (CommitException e) {
 			e.printStackTrace();
 			throw new WebApplicationException(Status.INTERNAL_SERVER_ERROR);

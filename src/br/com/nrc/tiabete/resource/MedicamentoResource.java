@@ -2,7 +2,6 @@ package br.com.nrc.tiabete.resource;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -15,45 +14,41 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.UriInfo;
-import javax.ws.rs.core.Response.Status;
 
-import br.com.nrc.tiabete.dao.MedicamentoDAO;
-import br.com.nrc.tiabete.dao.impl.MedicamentoDAOImpl;
+import br.com.nrc.tiabete.bo.MedicamentoBO;
 import br.com.nrc.tiabete.entity.Medicamento;
 import br.com.nrc.tiabete.exception.CommitException;
 import br.com.nrc.tiabete.exception.KeyNotFoundException;
-import br.com.nrc.tiabete.singleton.EntityManagerFactorySingleton;
 
 @Path("/medicamento")
 public class MedicamentoResource {
-	private MedicamentoDAO dao;
+	private MedicamentoBO bo;
 
 	public MedicamentoResource() {
-		EntityManager em = EntityManagerFactorySingleton.getInstance().createEntityManager();
-		dao = new MedicamentoDAOImpl(em);
+		bo = new MedicamentoBO();
 	}
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Medicamento> listar() {
-		return dao.listar();
+		return bo.listar();
 	}
 
 	@GET
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Medicamento pesquisar(@PathParam("id") int codigo) {
-		return dao.pesquisar(codigo);
+		return bo.pesquisar(codigo);
 	}
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response cadastrar(Medicamento medicamento, @Context UriInfo uri) {
 		try {
-			dao.inserir(medicamento);
-			dao.commit();
+			bo.inserir(medicamento);
 		} catch (CommitException e) {
 			e.printStackTrace();
 			return Response.serverError().build();
@@ -69,9 +64,8 @@ public class MedicamentoResource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response atualizar(Medicamento medicamento, @PathParam("id") int codigo) {
 		medicamento.setCodigo(codigo);
-		dao.atualizar(medicamento);
 		try {
-			dao.commit();
+			bo.atualizar(medicamento, codigo);
 		} catch (CommitException e) {
 			e.printStackTrace();
 			return Response.serverError().build();
@@ -84,8 +78,7 @@ public class MedicamentoResource {
 	@Path("{id}")
 	public void deletar(@PathParam("id") int codigo) {
 		try {
-			dao.remover(codigo);
-			dao.commit();
+			bo.remover(codigo);
 		} catch (CommitException e) {
 			e.printStackTrace();
 			throw new WebApplicationException(Status.INTERNAL_SERVER_ERROR);

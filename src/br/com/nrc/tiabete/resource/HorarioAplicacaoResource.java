@@ -2,7 +2,6 @@ package br.com.nrc.tiabete.resource;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -19,59 +18,53 @@ import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.core.Response.Status;
 
-import br.com.nrc.tiabete.dao.HorarioAplicacaoDAO;
-import br.com.nrc.tiabete.dao.impl.HorarioAplicacaoDAOImpl;
+import br.com.nrc.tiabete.bo.HorarioAplicacaoBO;
 import br.com.nrc.tiabete.entity.HorarioAplicacao;
 import br.com.nrc.tiabete.exception.CommitException;
 import br.com.nrc.tiabete.exception.KeyNotFoundException;
-import br.com.nrc.tiabete.singleton.EntityManagerFactorySingleton;
 
 @Path("/horario-aplicacao")
 public class HorarioAplicacaoResource {
-	private HorarioAplicacaoDAO dao;
-	
+	private HorarioAplicacaoBO bo;
+
 	public HorarioAplicacaoResource() {
-		EntityManager em = EntityManagerFactorySingleton.getInstance().createEntityManager();
-		dao= new HorarioAplicacaoDAOImpl(em);
+		bo = new HorarioAplicacaoBO();
 	}
-	
+
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<HorarioAplicacao> listar() {
-		return dao.listar();
+		return bo.listar();
 	}
 
 	@GET
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public HorarioAplicacao pesquisar(@PathParam("id") int codigo) {
-		return dao.pesquisar(codigo);
+		return bo.pesquisar(codigo);
 	}
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response cadastrar(HorarioAplicacao horarioAplicacao, @Context UriInfo uri) {
+	public Response cadastrar(HorarioAplicacao horaApli, @Context UriInfo uri) {
 		try {
-			dao.inserir(horarioAplicacao);
-			dao.commit();
+			bo.inserir(horaApli);
 		} catch (CommitException e) {
 			e.printStackTrace();
 			return Response.serverError().build();
 		}
 
 		UriBuilder builder = uri.getAbsolutePathBuilder();
-		builder.path(String.valueOf(horarioAplicacao.getCodigo()));
+		builder.path(String.valueOf(horaApli.getCodigo()));
 		return Response.created(builder.build()).build();
 	}
 
 	@PUT
 	@Path("{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response atualizar(HorarioAplicacao horarioAplicacao, @PathParam("id") int codigo) {
-		horarioAplicacao.setCodigo(codigo);
-		dao.atualizar(horarioAplicacao);
+	public Response atualizar(HorarioAplicacao horaApli, @PathParam("id") int codigo) {
 		try {
-			dao.commit();
+			bo.atualizar(horaApli, codigo);
 		} catch (CommitException e) {
 			e.printStackTrace();
 			return Response.serverError().build();
@@ -84,8 +77,7 @@ public class HorarioAplicacaoResource {
 	@Path("{id}")
 	public void deletar(@PathParam("id") int codigo) {
 		try {
-			dao.remover(codigo);
-			dao.commit();
+			bo.remover(codigo);
 		} catch (CommitException e) {
 			e.printStackTrace();
 			throw new WebApplicationException(Status.INTERNAL_SERVER_ERROR);

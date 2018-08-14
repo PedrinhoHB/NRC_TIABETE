@@ -2,7 +2,6 @@ package br.com.nrc.tiabete.resource;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -19,41 +18,37 @@ import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.UriInfo;
 
-import br.com.nrc.tiabete.dao.ResponsavelDAO;
-import br.com.nrc.tiabete.dao.impl.ResponsavelDAOImpl;
+import br.com.nrc.tiabete.bo.ResponsavelBO;
 import br.com.nrc.tiabete.entity.Responsavel;
 import br.com.nrc.tiabete.exception.CommitException;
 import br.com.nrc.tiabete.exception.KeyNotFoundException;
-import br.com.nrc.tiabete.singleton.EntityManagerFactorySingleton;
 
 @Path("/responsavel")
 public class ResponsavelResource {
-	private ResponsavelDAO dao;
+	private ResponsavelBO bo;
 
 	public ResponsavelResource() {
-		EntityManager em = EntityManagerFactorySingleton.getInstance().createEntityManager();
-		dao = new ResponsavelDAOImpl(em);
+		bo = new ResponsavelBO();
 	}
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Responsavel> listar() {
-		return dao.listar();
+		return bo.listar();
 	}
 
 	@GET
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Responsavel pesquisar(@PathParam("id") int codigo) {
-		return dao.pesquisar(codigo);
+		return bo.pesquisar(codigo);
 	}
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response cadastrar(Responsavel responsavel, @Context UriInfo uri) {
 		try {
-			dao.inserir(responsavel);
-			dao.commit();
+			bo.inserir(responsavel);
 		} catch (CommitException e) {
 			e.printStackTrace();
 			return Response.serverError().build();
@@ -68,10 +63,8 @@ public class ResponsavelResource {
 	@Path("{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response atualizar(Responsavel responsavel, @PathParam("id") int codigo) {
-		responsavel.setCodigo(codigo);
-		dao.atualizar(responsavel);
 		try {
-			dao.commit();
+			bo.atualizar(responsavel, codigo);
 		} catch (CommitException e) {
 			e.printStackTrace();
 			return Response.serverError().build();
@@ -84,8 +77,7 @@ public class ResponsavelResource {
 	@Path("{id}")
 	public void deletar(@PathParam("id") int codigo) {
 		try {
-			dao.remover(codigo);
-			dao.commit();
+			bo.remover(codigo);
 		} catch (CommitException e) {
 			e.printStackTrace();
 			throw new WebApplicationException(Status.INTERNAL_SERVER_ERROR);

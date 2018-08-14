@@ -2,7 +2,6 @@ package br.com.nrc.tiabete.resource;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -15,45 +14,41 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.UriInfo;
-import javax.ws.rs.core.Response.Status;
 
-import br.com.nrc.tiabete.dao.ResponsavelDependenteDAO;
-import br.com.nrc.tiabete.dao.impl.ResponsavelDependenteDAOImpl;
+import br.com.nrc.tiabete.bo.ResponsavelDependenteBO;
 import br.com.nrc.tiabete.entity.ResponsavelDependente;
 import br.com.nrc.tiabete.exception.CommitException;
 import br.com.nrc.tiabete.exception.KeyNotFoundException;
-import br.com.nrc.tiabete.singleton.EntityManagerFactorySingleton;
 
 @Path("/responsavel-dependente")
 public class ResponsavelDependenteResource {
-	private ResponsavelDependenteDAO dao;
+	private ResponsavelDependenteBO bo;
 
 	public ResponsavelDependenteResource() {
-		EntityManager em = EntityManagerFactorySingleton.getInstance().createEntityManager();
-		dao = new ResponsavelDependenteDAOImpl(em);
+		bo = new ResponsavelDependenteBO();
 	}
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<ResponsavelDependente> listar() {
-		return dao.listar();
+		return bo.listar();
 	}
 
 	@GET
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public ResponsavelDependente pesquisar(@PathParam("id") int codigo) {
-		return dao.pesquisar(codigo);
+		return bo.pesquisar(codigo);
 	}
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response cadastrar(ResponsavelDependente respDep, @Context UriInfo uri) {
 		try {
-			dao.inserir(respDep);
-			dao.commit();
+			bo.inserir(respDep);
 		} catch (CommitException e) {
 			e.printStackTrace();
 			return Response.serverError().build();
@@ -69,12 +64,8 @@ public class ResponsavelDependenteResource {
 	@Path("{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response atualizar(ResponsavelDependente respDep, @PathParam("id") int codigo) {
-		// TODO Verificar com o professor
-		respDep.getResponsavel().setCodigo(codigo);
-		respDep.getDependente().setCodigo(codigo);
-		dao.atualizar(respDep);
 		try {
-			dao.commit();
+			bo.atualizar(respDep, codigo);
 		} catch (CommitException e) {
 			e.printStackTrace();
 			return Response.serverError().build();
@@ -87,8 +78,7 @@ public class ResponsavelDependenteResource {
 	@Path("{id}")
 	public void deletar(@PathParam("id") int codigo) {
 		try {
-			dao.remover(codigo);
-			dao.commit();
+			bo.remover(codigo);
 		} catch (CommitException e) {
 			e.printStackTrace();
 			throw new WebApplicationException(Status.INTERNAL_SERVER_ERROR);

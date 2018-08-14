@@ -2,7 +2,6 @@ package br.com.nrc.tiabete.resource;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -22,38 +21,34 @@ import javax.ws.rs.core.Response.Status;
 import br.com.nrc.tiabete.entity.Dependente;
 import br.com.nrc.tiabete.exception.CommitException;
 import br.com.nrc.tiabete.exception.KeyNotFoundException;
-import br.com.nrc.tiabete.dao.DependenteDAO;
-import br.com.nrc.tiabete.dao.impl.DependenteDAOImpl;
-import br.com.nrc.tiabete.singleton.EntityManagerFactorySingleton;
+import br.com.nrc.tiabete.bo.DependenteBO;
 
 @Path("/dependente")
 public class DependenteResource {
-	private DependenteDAO dao;
-	
+	private DependenteBO bo;
+
 	public DependenteResource() {
-		EntityManager em = EntityManagerFactorySingleton.getInstance().createEntityManager();
-		dao= new DependenteDAOImpl(em);
+		bo = new DependenteBO();
 	}
-	
+
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Dependente> listar() {
-		return dao.listar();
+		return bo.listar();
 	}
 
 	@GET
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Dependente pesquisar(@PathParam("id") int codigo) {
-		return dao.pesquisar(codigo);
+		return bo.pesquisar(codigo);
 	}
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response cadastrar(Dependente dependente, @Context UriInfo uri) {
 		try {
-			dao.inserir(dependente);
-			dao.commit();
+			bo.inserir(dependente);
 		} catch (CommitException e) {
 			e.printStackTrace();
 			return Response.serverError().build();
@@ -68,10 +63,8 @@ public class DependenteResource {
 	@Path("{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response atualizar(Dependente dependente, @PathParam("id") int codigo) {
-		dependente.setCodigo(codigo);
-		dao.atualizar(dependente);
 		try {
-			dao.commit();
+			bo.atualizar(dependente, codigo);
 		} catch (CommitException e) {
 			e.printStackTrace();
 			return Response.serverError().build();
@@ -84,8 +77,7 @@ public class DependenteResource {
 	@Path("{id}")
 	public void deletar(@PathParam("id") int codigo) {
 		try {
-			dao.remover(codigo);
-			dao.commit();
+			bo.remover(codigo);
 		} catch (CommitException e) {
 			e.printStackTrace();
 			throw new WebApplicationException(Status.INTERNAL_SERVER_ERROR);
