@@ -33,6 +33,7 @@ public class ResponsavelDependenteResource {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
+	@Deprecated
 	public List<ResponsavelDependente> listar() {
 		return bo.listar();
 	}
@@ -40,12 +41,14 @@ public class ResponsavelDependenteResource {
 	@GET
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
+	@Deprecated
 	public ResponsavelDependente pesquisar(@PathParam("id") int codigo) {
 		return bo.pesquisar(codigo);
 	}
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
+	@Deprecated
 	public Response cadastrar(ResponsavelDependente respDep, @Context UriInfo uri) {
 		try {
 			bo.inserir(respDep);
@@ -61,11 +64,13 @@ public class ResponsavelDependenteResource {
 	}
 
 	@PUT
-	@Path("{id}")
+	@Path("{idResp}/{idDep}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response atualizar(ResponsavelDependente respDep, @PathParam("id") int codigo) {
+	@Deprecated
+	public Response atualizar(ResponsavelDependente respDep, @PathParam("idResp") int codResp,
+			@PathParam("idDep") int codDep) {
 		try {
-			bo.atualizar(respDep, codigo);
+			bo.atualizar(respDep, codResp, codDep);
 		} catch (CommitException e) {
 			e.printStackTrace();
 			return Response.serverError().build();
@@ -76,6 +81,7 @@ public class ResponsavelDependenteResource {
 
 	@DELETE
 	@Path("{id}")
+	@Deprecated
 	public void deletar(@PathParam("id") int codigo) {
 		try {
 			bo.remover(codigo);

@@ -33,6 +33,7 @@ public class InsulinaDependenteResource {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
+	@Deprecated
 	public List<InsulinaDependente> listar() {
 		return bo.listar();
 	}
@@ -40,12 +41,14 @@ public class InsulinaDependenteResource {
 	@GET
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
+	@Deprecated
 	public InsulinaDependente pesquisar(@PathParam("id") int codigo) {
 		return bo.pesquisar(codigo);
 	}
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
+	@Deprecated
 	public Response cadastrar(InsulinaDependente insulina, @Context UriInfo uri) {
 		try {
 			bo.inserir(insulina);
@@ -61,11 +64,13 @@ public class InsulinaDependenteResource {
 	}
 
 	@PUT
-	@Path("{id}")
+	@Path("{idInsu}/{idDep}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response atualizar(InsulinaDependente insulina, @PathParam("id") int codigo) {
+	@Deprecated
+	public Response atualizar(InsulinaDependente insulina, @PathParam("idInsu") int codInsu,
+			@PathParam("idDep") int codDep) {
 		try {
-			bo.atualizar(insulina, codigo);
+			bo.atualizar(insulina, codInsu, codDep);
 		} catch (CommitException e) {
 			e.printStackTrace();
 			return Response.serverError().build();
@@ -76,6 +81,7 @@ public class InsulinaDependenteResource {
 
 	@DELETE
 	@Path("{id}")
+	@Deprecated
 	public void deletar(@PathParam("id") int codigo) {
 		try {
 			bo.remover(codigo);
