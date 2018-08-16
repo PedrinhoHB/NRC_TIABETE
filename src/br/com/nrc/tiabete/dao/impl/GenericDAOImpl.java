@@ -12,7 +12,7 @@ import br.com.nrc.tiabete.exception.KeyNotFoundException;
 public class GenericDAOImpl<T,K> 
 						implements GenericDAO<T, K>{
 
-	private EntityManager em;
+	protected EntityManager em;
 	
 	private Class<T> clazz;
 	

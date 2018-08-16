@@ -1,6 +1,7 @@
 package br.com.nrc.tiabete.dao.impl;
 
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 
@@ -32,5 +33,9 @@ public class DependenteDAOImpl extends GenericDAOImpl<Dependente, Integer> imple
 				dc.getDataHoraAtual().get("Minuto"), dc.getDataHoraAtual().get("Segundo")));
 		atualizar(dependente);
 		commit();
+	}
+
+	public List<Dependente> listarComInsulina() {
+		return em.createQuery("from Dependente d join fetch d.insulinas", Dependente.class).getResultList();
 	}
 }

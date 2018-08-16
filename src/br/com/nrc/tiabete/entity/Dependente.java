@@ -2,6 +2,9 @@ package br.com.nrc.tiabete.entity;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,6 +13,8 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
@@ -25,6 +30,10 @@ public class Dependente extends Usuario implements Serializable {
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "cd_tipo_diabete")
 	private TipoDiabete tipoDiabete;
+
+	@ManyToMany
+	@JoinTable()
+	private Set<Insulina> insulinas = new HashSet<Insulina>();
 
 	@Column(name = "ds_genero")
 	@Enumerated(EnumType.STRING)
