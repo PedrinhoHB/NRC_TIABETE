@@ -25,7 +25,7 @@ public class ValorGlicemico implements Serializable {
 	@Column(name = "cd_valor_glicemico")
 	private int codigo;
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "cd_usuario")
 	private Dependente dependente;
 

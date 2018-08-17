@@ -34,7 +34,7 @@ public class HorarioAplicacao implements Serializable {
 	@Column(name = "vl_dose")
 	private double dose;
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "cd_aplicacao")
 	private Aplicacao aplicacao;
 

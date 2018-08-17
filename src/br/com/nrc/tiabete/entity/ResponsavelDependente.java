@@ -14,15 +14,15 @@ import javax.persistence.Table;
 @Entity(name = "ResponsavelDependente")
 @Table(name = "T_NRC_RESPONSAVEL_DEPENDETNE")
 @IdClass(ResponsavelDependentePK.class)
-public class ResponsavelDependente implements Serializable{
+public class ResponsavelDependente implements Serializable {
 	@Id
 	@JoinColumn(name = "cd_responsavel")
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Responsavel responsavel;
 
 	@Id
 	@JoinColumn(name = "cd_dependente")
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Dependente dependente;
 
 	public Responsavel getResponsavel() {

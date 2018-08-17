@@ -24,10 +24,10 @@ import javax.persistence.TemporalType;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity(name = "Dependente")
-@Table(name = "T_NRC_DEPENDENTE")
+@Table(name = "T_NRC_DEP")
 @PrimaryKeyJoinColumn(name = "cd_usuario")
 public class Dependente extends Usuario implements Serializable {
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "cd_tipo_diabete")
 	private TipoDiabete tipoDiabete;
 

@@ -17,7 +17,7 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity(name = "Insulina")
-@Table(name = "T_NRC_INSULINA")
+@Table(name = "T_NRC_INSU")
 @SequenceGenerator(name = "insulina", sequenceName = "SQ_T_NRC_INSULINA", allocationSize = 1)
 public class Insulina implements Serializable {
 
@@ -26,11 +26,11 @@ public class Insulina implements Serializable {
 	@GeneratedValue(generator = "insulina", strategy = GenerationType.SEQUENCE)
 	private int codigo;
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "cd_tipo_insulina")
 	private TipoInsulina tipoInsulina;
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "cd_categoria_insulina")
 	private CategoriaInsulina categoriaInsulina;
 

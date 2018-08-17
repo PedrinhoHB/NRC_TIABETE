@@ -20,21 +20,21 @@ import javax.persistence.TemporalType;
 @Entity(name = "Refeicao")
 @Table(name = "T_NRC_REFEICAO")
 @SequenceGenerator(name = "refeicao", sequenceName = "SQ_T_NRC_REFEICAO", allocationSize = 1)
-public class Refeicao implements Serializable{
+public class Refeicao implements Serializable {
 	@Id
 	@Column(name = "cd_refeicao")
 	@GeneratedValue(generator = "refeicao", strategy = GenerationType.SEQUENCE)
 	private int codigo;
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "cd_tipo_refeicao")
 	private TipoRefeicao tipoRefeicao;
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "cd_alimento")
 	private Alimento alimento;
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "cd_dependente")
 	private Dependente dependente;
 

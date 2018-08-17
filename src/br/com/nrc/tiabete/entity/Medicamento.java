@@ -17,20 +17,22 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity(name = "Medicamento")
 @Table(name = "T_NRC_MEDICAMENTO")
 @SequenceGenerator(name = "medicamento", sequenceName = "SQ_T_NRC_MEDICAMENTO", allocationSize = 1)
-public class Medicamento implements Serializable{
+public class Medicamento implements Serializable {
 	@Id
 	@Column(name = "cd_medicamento")
 	@GeneratedValue(generator = "medicamento", strategy = GenerationType.SEQUENCE)
 	private int codigo;
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "cd_remedio")
 	private Remedio remedio;
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "cd_dependente")
 	private Dependente dependente;
 

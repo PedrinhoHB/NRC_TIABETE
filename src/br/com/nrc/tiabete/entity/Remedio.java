@@ -10,10 +10,12 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity(name = "Remedio")
 @Table(name = "T_NRC_REMEDIO")
 @SequenceGenerator(name = "remedio", sequenceName = "SQ_T_NRC_REMEDIO", allocationSize = 1)
-public class Remedio implements Serializable{
+public class Remedio implements Serializable {
 	@Id
 	@Column(name = "cd_remedio")
 	@GeneratedValue(generator = "remedio", strategy = GenerationType.SEQUENCE)

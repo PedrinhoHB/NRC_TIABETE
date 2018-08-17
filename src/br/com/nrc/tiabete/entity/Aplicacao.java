@@ -24,11 +24,11 @@ public class Aplicacao implements Serializable {
 	@GeneratedValue(generator = "aplicacao", strategy = GenerationType.SEQUENCE)
 	private int codigo;
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "cd_insulina")
 	private Insulina insulina;
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "cd_usuario")
 	private Dependente dependente;
 

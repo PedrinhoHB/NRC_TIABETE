@@ -14,18 +14,17 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity(name = "InsulinaDependente")
-@Table(name = "T_NRC_INSULINA_DEPENDENTE")
+@Table(name = "T_NRC_INSU_DEP")
 @IdClass(InsulinaDependentePK.class)
-@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class InsulinaDependente implements Serializable {
 	@Id
 	@JoinColumn(name = "cd_insulina")
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Insulina insulina;
 
 	@Id
 	@JoinColumn(name = "cd_dependente")
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Dependente dependente;
 
 	public Insulina getInsulina() {
