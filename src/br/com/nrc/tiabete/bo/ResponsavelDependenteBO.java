@@ -32,10 +32,9 @@ public class ResponsavelDependenteBO {
 		dao.commit();
 	}
 
-	public void atualizar(ResponsavelDependente respDep, int codigo) throws CommitException {
-		// TODO Verificar com o professor
-		respDep.getResponsavel().setCodigo(codigo);
-		respDep.getDependente().setCodigo(codigo);
+	public void atualizar(ResponsavelDependente respDep, int codResp, int codDep) throws CommitException {
+		respDep.getResponsavel().setCodigo(codResp);
+		respDep.getDependente().setCodigo(codDep);
 		dao.atualizar(respDep);
 		dao.commit();
 	}

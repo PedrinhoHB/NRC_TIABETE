@@ -32,10 +32,9 @@ public class InsulinaDependenteBO {
 		dao.commit();
 	}
 
-	public void atualizar(InsulinaDependente insuDep, int codigo) throws CommitException {
-		// TODO Verificar com o professor
-		insuDep.getInsulina().setCodigo(codigo);
-		insuDep.getDependente().setCodigo(codigo);
+	public void atualizar(InsulinaDependente insuDep, int codInsu, int codDep) throws CommitException {
+		insuDep.getInsulina().setCodigo(codInsu);
+		insuDep.getDependente().setCodigo(codDep);
 		dao.atualizar(insuDep);
 		dao.commit();
 	}
