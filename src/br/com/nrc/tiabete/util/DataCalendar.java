@@ -25,27 +25,33 @@ public class DataCalendar {
 		return data;
 	}
 
-	// TODO Testar com os dados do banco
-	public String formatar(Calendar calendar, String formato) {
+	public String formataData(Calendar calendar, String formato) {
 		df = new SimpleDateFormat(formato);
 		return df.format(calendar.getTime());
 	}
 
-	// TODO Testar com os dados do banco
 	public String formataData(Calendar calendar) {
 		df = new SimpleDateFormat("dd-MM-yyyy");
 		return df.format(calendar.getTime());
 	}
 
-	// TODO Testar com os dados do banco
 	public String formataHora(Calendar calendar) {
 		df = new SimpleDateFormat("hh:mm:ss");
 		return df.format(calendar.getTime());
 	}
 
-	// TODO Testar com os dados do banco
+	public String formataHora(Calendar calendar, String formato) {
+		df = new SimpleDateFormat(formato);
+		return df.format(calendar.getTime());
+	}
+
 	public String formataDataHora(Calendar calendar) {
 		df = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
+		return df.format(calendar.getTime());
+	}
+
+	public String formataDataHora(Calendar calendar, String formato) {
+		df = new SimpleDateFormat(formato);
 		return df.format(calendar.getTime());
 	}
 
