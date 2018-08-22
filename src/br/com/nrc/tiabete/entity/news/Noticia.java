@@ -10,7 +10,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -26,13 +28,13 @@ public class Noticia {
 	@Column(name = "ds_status")
 	private boolean status;
 
-	// TODO Verificar relacionamento
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "cd_feed")
 	private Feed feed;
 
-	// TODO Verificar relacionamento
-	@OneToMany(mappedBy = "noticia", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinTable(name = "T_NRC_NW_NOTI_ITEM", joinColumns = { @JoinColumn(name = "cd_noticia") }, inverseJoinColumns = {
+			@JoinColumn(name = "cd_item") })
 	private List<Item> itens;
 
 	public Noticia() {
@@ -69,14 +71,5 @@ public class Noticia {
 
 	public void setItens(List<Item> itens) {
 		this.itens = itens;
-	}
-
-	public void addItem(Item novo) {
-		novo.setNoticia(this);
-		this.itens.add(novo);
-	}
-
-	public void removeItem(Item item) {
-		itens.remove(item);
 	}
 }

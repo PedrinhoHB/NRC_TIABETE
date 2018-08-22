@@ -9,8 +9,9 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -24,10 +25,8 @@ public class Item {
 	@Column(name = "cd_item")
 	private int codigo;
 
-	// TODO Verificar relacionamento
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "cd_noticia")
-	private Noticia noticia;
+	@ManyToMany(mappedBy = "itens", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private List<Noticia> noticias;
 
 	@Column(name = "ds_titulo")
 	private String titulo;
@@ -42,6 +41,8 @@ public class Item {
 	@Column(name = "ds_guid")
 	private String guid;
 
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "cd_autor")
 	private Autor autor;
 
 	@Column(name = "ds_thumbnail")
@@ -53,22 +54,21 @@ public class Item {
 	@Column(name = "ds_content")
 	private String content;
 
-	// TODO Verificar relacionamento
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "cd_eclosure")
 	private Enclosure eclosure;
 
-	// TODO Verificar relacionamento
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "cd_categoria")
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinTable(name = "T_NRC_NW_ITEM_CAT", joinColumns = { @JoinColumn(name = "cd_item") }, inverseJoinColumns = {
+			@JoinColumn(name = "cd_categoria") })
 	private List<Categoria> categorias;
 
-	public Noticia getNoticia() {
-		return noticia;
+	public List<Noticia> getNoticias() {
+		return noticias;
 	}
 
-	public void setNoticia(Noticia noticia) {
-		this.noticia = noticia;
+	public void setNoticias(List<Noticia> noticias) {
+		this.noticias = noticias;
 	}
 
 	public int getCodigo() {
