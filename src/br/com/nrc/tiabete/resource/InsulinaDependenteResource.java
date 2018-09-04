@@ -39,11 +39,11 @@ public class InsulinaDependenteResource {
 	}
 
 	@GET
-	@Path("{id}")
+	@Path("{idInsu}/{idDep}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Deprecated
-	public InsulinaDependente pesquisar(@PathParam("id") int codigo) {
-		return bo.pesquisar(codigo);
+	public InsulinaDependente pesquisar(@PathParam("idInsu") int codInsu, @PathParam("idDep") int codDep) {
+		return bo.pesquisar(codInsu, codDep);
 	}
 
 	@POST
@@ -80,11 +80,11 @@ public class InsulinaDependenteResource {
 	}
 
 	@DELETE
-	@Path("{id}")
+	@Path("{idInsu}/{idDep}")
 	@Deprecated
-	public void deletar(@PathParam("id") int codigo) {
+	public void deletar(@PathParam("idInsu") int codInsu, @PathParam("idDep") int codDep) {
 		try {
-			bo.remover(codigo);
+			bo.remover(codInsu, codDep);
 		} catch (CommitException e) {
 			e.printStackTrace();
 			throw new WebApplicationException(Status.INTERNAL_SERVER_ERROR);
