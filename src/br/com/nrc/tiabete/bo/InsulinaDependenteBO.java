@@ -13,6 +13,7 @@ import br.com.nrc.tiabete.dao.impl.InsulinaDependenteDAOImpl;
 import br.com.nrc.tiabete.entity.Dependente;
 import br.com.nrc.tiabete.entity.Insulina;
 import br.com.nrc.tiabete.entity.InsulinaDependente;
+import br.com.nrc.tiabete.entity.InsulinaDependentePK;
 import br.com.nrc.tiabete.exception.CommitException;
 import br.com.nrc.tiabete.exception.KeyNotFoundException;
 import br.com.nrc.tiabete.singleton.EntityManagerFactorySingleton;
@@ -24,11 +25,14 @@ public class InsulinaDependenteBO {
 
 	private DependenteDAO daoDep;
 
+	private InsulinaDependentePK pk;
+
 	public InsulinaDependenteBO() {
 		EntityManager em = EntityManagerFactorySingleton.getInstance().createEntityManager();
 		dao = new InsulinaDependenteDAOImpl(em);
 		daoInsu = new InsulinaDAOImpl(em);
 		daoDep = new DependenteDAOImpl(em);
+		pk = new InsulinaDependentePK();
 	}
 
 	public List<InsulinaDependente> listar() {
@@ -36,11 +40,10 @@ public class InsulinaDependenteBO {
 	}
 
 	public InsulinaDependente pesquisar(int codInsu, int codDep) {
-		Insulina insulina = daoInsu.pesquisar(codInsu);
-		Dependente dependente = daoDep.pesquisar(codDep);
+		// TODO Verificar
 		InsulinaDependente insuDep = new InsulinaDependente();
-		insuDep.setInsulina(insulina);
-		insuDep.setDependente(dependente);
+		insuDep.setInsulina(daoInsu.pesquisar(codInsu));
+		insuDep.setDependente(daoDep.pesquisar(codDep));
 
 		return insuDep;
 	}
@@ -58,9 +61,10 @@ public class InsulinaDependenteBO {
 	}
 
 	public void remover(int codInsu, int codDep) throws CommitException, KeyNotFoundException {
-		daoInsu.remover(codInsu);
-		daoDep.remover(codDep);
-		daoInsu.commit();
-		daoDep.commit();
+		// TODO Verificar
+		pk.setInsulina(codInsu);
+		pk.setDependente(codDep);
+		dao.remover(pk.hashCode());
+		dao.commit();
 	}
 }
