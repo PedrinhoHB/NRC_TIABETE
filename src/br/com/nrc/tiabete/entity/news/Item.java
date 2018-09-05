@@ -6,7 +6,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -25,7 +24,7 @@ public class Item {
 	@Column(name = "cd_item")
 	private int codigo;
 
-	@ManyToMany(mappedBy = "itens", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToMany(mappedBy = "itens", cascade = CascadeType.ALL)
 	private List<Noticia> noticias;
 
 	@Column(name = "ds_titulo")
@@ -41,7 +40,7 @@ public class Item {
 	@Column(name = "ds_guid")
 	private String guid;
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "cd_autor")
 	private Autor autor;
 
@@ -54,11 +53,11 @@ public class Item {
 	@Column(name = "ds_content")
 	private String content;
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "cd_eclosure")
 	private Enclosure eclosure;
 
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "T_NRC_NW_ITEM_CAT", joinColumns = { @JoinColumn(name = "cd_item") }, inverseJoinColumns = {
 			@JoinColumn(name = "cd_categoria") })
 	private List<Categoria> categorias;

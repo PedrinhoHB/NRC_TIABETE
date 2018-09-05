@@ -6,7 +6,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -28,11 +27,11 @@ public class Noticia {
 	@Column(name = "ds_status")
 	private boolean status;
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "cd_feed")
 	private Feed feed;
 
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "T_NRC_NW_NOTI_ITEM", joinColumns = { @JoinColumn(name = "cd_noticia") }, inverseJoinColumns = {
 			@JoinColumn(name = "cd_item") })
 	private List<Item> itens;
