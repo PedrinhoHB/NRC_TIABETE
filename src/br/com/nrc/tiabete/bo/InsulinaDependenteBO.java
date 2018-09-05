@@ -58,9 +58,13 @@ public class InsulinaDependenteBO {
 	}
 
 	public void remover(int codInsu, int codDep) throws CommitException, KeyNotFoundException {
+		insuDep.setInsulina(daoi.pesquisar(codInsu));
+		insuDep.setDependente(daod.pesquisar(codDep));
 
-		insuDep.getInsulina().setCodigo(codInsu);
-		insuDep.getDependente().setCodigo(codDep);
+		if (insuDep.getInsulina() == null || insuDep.getDependente() == null) {
+			throw new KeyNotFoundException();
+		}
+
 		dao.removerPorEntidade(insuDep);
 		dao.commit();
 	}

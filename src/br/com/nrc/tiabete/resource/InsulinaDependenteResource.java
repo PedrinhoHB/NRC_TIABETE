@@ -31,7 +31,6 @@ public class InsulinaDependenteResource {
 		bo = new InsulinaDependenteBO();
 	}
 
-	// TODO Testar
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Deprecated
@@ -39,7 +38,6 @@ public class InsulinaDependenteResource {
 		return bo.listar();
 	}
 
-	// TODO Testar
 	@GET
 	@Path("{idInsu}/{idDep}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -48,7 +46,6 @@ public class InsulinaDependenteResource {
 		return bo.pesquisar(codInsu, codDep);
 	}
 
-	// TODO Testar
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Deprecated
@@ -66,7 +63,6 @@ public class InsulinaDependenteResource {
 		return Response.created(builder.build()).build();
 	}
 
-	// TODO Testar
 	@PUT
 	@Path("{idInsu}/{idDep}")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -83,7 +79,6 @@ public class InsulinaDependenteResource {
 		return Response.ok().build();
 	}
 
-	// TODO Testar
 	@DELETE
 	@Path("{idInsu}/{idDep}")
 	@Deprecated
