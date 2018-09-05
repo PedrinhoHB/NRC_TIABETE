@@ -42,7 +42,8 @@ public class GenericDAOImpl<T, K> implements GenericDAO<T, K> {
 
 	@Override
 	public void removerPorEntidade(T entidade) {
-		em.remove(entidade);
+		T t = em.merge(entidade);
+		em.remove(t);
 	}
 
 	@Override
