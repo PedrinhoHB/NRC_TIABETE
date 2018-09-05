@@ -58,7 +58,6 @@ public class InsulinaDependenteResource {
 		}
 
 		UriBuilder builder = uri.getAbsolutePathBuilder();
-		// TODO Verificar com o professor
 		builder.path(String.valueOf(insulina.getInsulina().getCodigo() + insulina.getDependente().getCodigo()));
 		return Response.created(builder.build()).build();
 	}

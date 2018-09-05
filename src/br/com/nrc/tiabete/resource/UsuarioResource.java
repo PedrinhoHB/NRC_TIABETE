@@ -2,26 +2,14 @@ package br.com.nrc.tiabete.resource;
 
 import java.util.List;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
-import javax.ws.rs.core.UriBuilder;
-import javax.ws.rs.core.UriInfo;
 
 import br.com.nrc.tiabete.bo.UsuarioBO;
 import br.com.nrc.tiabete.entity.Usuario;
-import br.com.nrc.tiabete.exception.CommitException;
-import br.com.nrc.tiabete.exception.KeyNotFoundException;
 
 @Path("/usuario")
 public class UsuarioResource {
@@ -44,46 +32,42 @@ public class UsuarioResource {
 		return bo.pesquisar(codigo);
 	}
 
-	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response cadastrar(Usuario usuario, @Context UriInfo uri) {
-		try {
-			bo.inserir(usuario);
-		} catch (CommitException e) {
-			e.printStackTrace();
-			return Response.serverError().build();
-		}
+	// Método retirado porque a classe Usuario é abstrata
+	/*
+	 * @POST
+	 * 
+	 * @Consumes(MediaType.APPLICATION_JSON) public Response cadastrar(Usuario
+	 * usuario, @Context UriInfo uri) { try { bo.inserir(usuario); } catch
+	 * (CommitException e) { e.printStackTrace(); return
+	 * Response.serverError().build(); }
+	 * 
+	 * UriBuilder builder = uri.getAbsolutePathBuilder();
+	 * builder.path(String.valueOf(usuario.getCodigo())); return
+	 * Response.created(builder.build()).build(); }
+	 */
 
-		UriBuilder builder = uri.getAbsolutePathBuilder();
-		builder.path(String.valueOf(usuario.getCodigo()));
-		return Response.created(builder.build()).build();
-	}
+	// Método retirado porque a classe Usuario é abstrata
+	/*
+	 * @PUT
+	 * 
+	 * @Path("{id}")
+	 * 
+	 * @Consumes(MediaType.APPLICATION_JSON) public Response atualizar(Usuario
+	 * usuario, @PathParam("id") int codigo) { try { bo.atualizar(usuario, codigo);
+	 * } catch (CommitException e) { e.printStackTrace(); return
+	 * Response.serverError().build(); }
+	 * 
+	 * return Response.ok().build(); }
+	 */
 
-	@PUT
-	@Path("{id}")
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response atualizar(Usuario usuario, @PathParam("id") int codigo) {
-		try {
-			bo.atualizar(usuario, codigo);
-		} catch (CommitException e) {
-			e.printStackTrace();
-			return Response.serverError().build();
-		}
-
-		return Response.ok().build();
-	}
-
-	@DELETE
-	@Path("{id}")
-	public void deletar(@PathParam("id") int codigo) {
-		try {
-			bo.remover(codigo);
-		} catch (CommitException e) {
-			e.printStackTrace();
-			throw new WebApplicationException(Status.INTERNAL_SERVER_ERROR);
-		} catch (KeyNotFoundException e) {
-			e.printStackTrace();
-			throw new WebApplicationException(Status.BAD_REQUEST);
-		}
-	}
+	// Método retirado porque a classe Usuario é abstrata
+	/*
+	 * @DELETE
+	 * 
+	 * @Path("{id}") public void deletar(@PathParam("id") int codigo) { try {
+	 * bo.remover(codigo); } catch (CommitException e) { e.printStackTrace(); throw
+	 * new WebApplicationException(Status.INTERNAL_SERVER_ERROR); } catch
+	 * (KeyNotFoundException e) { e.printStackTrace(); throw new
+	 * WebApplicationException(Status.BAD_REQUEST); } }
+	 */
 }

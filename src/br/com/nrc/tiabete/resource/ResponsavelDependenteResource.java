@@ -58,7 +58,6 @@ public class ResponsavelDependenteResource {
 		}
 
 		UriBuilder builder = uri.getAbsolutePathBuilder();
-		// TODO Verificar com o professor
 		builder.path(String.valueOf(respDep.getResponsavel().getCodigo() + respDep.getDependente().getCodigo()));
 		return Response.created(builder.build()).build();
 	}
