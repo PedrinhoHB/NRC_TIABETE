@@ -31,6 +31,7 @@ public class InsulinaDependenteResource {
 		bo = new InsulinaDependenteBO();
 	}
 
+	// TODO Testar
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Deprecated
@@ -38,14 +39,16 @@ public class InsulinaDependenteResource {
 		return bo.listar();
 	}
 
+	// TODO Testar
 	@GET
-	@Path("{id}")
+	@Path("{idInsu}/{idDep}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Deprecated
-	public InsulinaDependente pesquisar(@PathParam("id") int codigo) {
-		return bo.pesquisar(codigo);
+	public InsulinaDependente pesquisar(@PathParam("idInsu") int codInsu, @PathParam("idDep") int codDep) {
+		return bo.pesquisar(codInsu, codDep);
 	}
 
+	// TODO Testar
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Deprecated
@@ -63,6 +66,7 @@ public class InsulinaDependenteResource {
 		return Response.created(builder.build()).build();
 	}
 
+	// TODO Testar
 	@PUT
 	@Path("{idInsu}/{idDep}")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -79,12 +83,13 @@ public class InsulinaDependenteResource {
 		return Response.ok().build();
 	}
 
+	// TODO Testar
 	@DELETE
-	@Path("{id}")
+	@Path("{idInsu}/{idDep}")
 	@Deprecated
-	public void deletar(@PathParam("id") int codigo) {
+	public void deletar(@PathParam("idInsu") int codInsu, @PathParam("idDep") int codDep) {
 		try {
-			bo.remover(codigo);
+			bo.remover(codInsu, codDep);
 		} catch (CommitException e) {
 			e.printStackTrace();
 			throw new WebApplicationException(Status.INTERNAL_SERVER_ERROR);
