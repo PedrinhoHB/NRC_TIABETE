@@ -13,6 +13,8 @@ public interface GenericDAO<T, K> {
 
 	void remover(K codigo) throws KeyNotFoundException;
 
+	void removerPorEntidade(T entidade);
+
 	T pesquisar(K codigo);
 
 	List<T> listar();
