@@ -14,6 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+@SuppressWarnings("serial")
+
 @Entity(name = "Aplicacao")
 @Table(name = "T_NRC_APLICACAO")
 @SequenceGenerator(name = "aplicacao", sequenceName = "SQ_T_NRC_APLICACAO", allocationSize = 1)

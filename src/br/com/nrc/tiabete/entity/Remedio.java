@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+@SuppressWarnings("serial")
 
 @Entity(name = "Remedio")
 @Table(name = "T_NRC_REMEDIO")

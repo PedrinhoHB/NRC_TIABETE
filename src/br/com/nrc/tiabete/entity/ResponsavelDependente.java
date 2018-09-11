@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+@SuppressWarnings("serial")
+
 @Entity(name = "ResponsavelDependente")
 @Table(name = "T_NRC_RESPONSAVEL_DEPENDETNE")
 @IdClass(ResponsavelDependentePK.class)

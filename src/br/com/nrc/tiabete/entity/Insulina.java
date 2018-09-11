@@ -14,7 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+@SuppressWarnings("serial")
 
 @Entity(name = "Insulina")
 @Table(name = "T_NRC_INSU")

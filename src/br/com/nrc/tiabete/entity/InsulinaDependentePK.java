@@ -2,6 +2,8 @@ package br.com.nrc.tiabete.entity;
 
 import java.io.Serializable;
 
+@SuppressWarnings("serial")
+
 public class InsulinaDependentePK implements Serializable {
 
 	private int insulina;

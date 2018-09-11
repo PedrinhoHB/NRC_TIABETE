@@ -17,7 +17,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+@SuppressWarnings("serial")
 
 @Entity(name = "Medicamento")
 @Table(name = "T_NRC_MEDICAMENTO")

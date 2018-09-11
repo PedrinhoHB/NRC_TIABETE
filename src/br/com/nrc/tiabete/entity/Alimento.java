@@ -10,10 +10,12 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+@SuppressWarnings("serial")
+
 @Entity(name = "Alimento")
 @Table(name = "T_NRC_ALIMENTO")
 @SequenceGenerator(name = "alimento", sequenceName = "SQ_T_NRC_ALIMENTO", allocationSize = 1)
-public class Alimento implements Serializable{
+public class Alimento implements Serializable {
 	@Id
 	@Column(name = "cd_alimento")
 	@GeneratedValue(generator = "alimento", strategy = GenerationType.SEQUENCE)

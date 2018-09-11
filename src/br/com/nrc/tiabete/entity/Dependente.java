@@ -3,7 +3,6 @@ package br.com.nrc.tiabete.entity;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -21,7 +20,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+@SuppressWarnings("serial")
 
 @Entity(name = "Dependente")
 @Table(name = "T_NRC_DEP")

@@ -17,6 +17,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+@SuppressWarnings("serial")
+
 @Entity(name = "Refeicao")
 @Table(name = "T_NRC_REFEICAO")
 @SequenceGenerator(name = "refeicao", sequenceName = "SQ_T_NRC_REFEICAO", allocationSize = 1)
