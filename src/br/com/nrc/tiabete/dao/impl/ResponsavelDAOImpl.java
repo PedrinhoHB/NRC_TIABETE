@@ -16,9 +16,7 @@ public class ResponsavelDAOImpl extends GenericDAOImpl<Responsavel, Integer> imp
 
 	@Override
 	public List<Dependente> dependentesPorResponsavel(int idResp) {
-		return em.createQuery("d.* from ResponsavelDependente rp "
-				+ "join Responsavel r on rp.codigo = r.codigo "
-				+ "join Dependente d on rp.codigo = d.codigo "
+		return em.createQuery("select d.codigo, d.nome from ResponsavelDependente rp, Dependente d, Responsavel r "
 				+ "where r.codigo = :idResp", Dependente.class).setParameter("idResp", idResp)
 				.getResultList();
 	}

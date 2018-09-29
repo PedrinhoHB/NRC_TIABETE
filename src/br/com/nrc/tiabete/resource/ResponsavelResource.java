@@ -19,6 +19,7 @@ import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.UriInfo;
 
 import br.com.nrc.tiabete.bo.ResponsavelBO;
+import br.com.nrc.tiabete.entity.Dependente;
 import br.com.nrc.tiabete.entity.Responsavel;
 import br.com.nrc.tiabete.exception.CommitException;
 import br.com.nrc.tiabete.exception.KeyNotFoundException;
@@ -35,6 +36,13 @@ public class ResponsavelResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Responsavel> listar() {
 		return bo.listar();
+	}
+
+	@GET
+	@Path("depPorResp/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Dependente> dependentesPorResponsavel(@PathParam("id") int idResp) {
+		return bo.dependentesPorResponsavel(idResp);
 	}
 
 	@GET
