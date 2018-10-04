@@ -20,6 +20,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+@SuppressWarnings("serial")
+
 @Entity(name = "Dependente")
 @Table(name = "T_NRC_DEP")
 @PrimaryKeyJoinColumn(name = "cd_usuario")

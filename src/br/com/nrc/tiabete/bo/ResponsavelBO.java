@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 
 import br.com.nrc.tiabete.dao.ResponsavelDAO;
 import br.com.nrc.tiabete.dao.impl.ResponsavelDAOImpl;
+import br.com.nrc.tiabete.entity.Dependente;
 import br.com.nrc.tiabete.entity.Responsavel;
 import br.com.nrc.tiabete.exception.CommitException;
 import br.com.nrc.tiabete.exception.KeyNotFoundException;
@@ -21,6 +22,10 @@ public class ResponsavelBO {
 
 	public List<Responsavel> listar() {
 		return dao.listar();
+	}
+
+	public List<Dependente> dependentesPorResponsavel(int idResp) {
+		return dao.dependentesPorResponsavel(idResp);
 	}
 
 	public Responsavel pesquisar(int codigo) {

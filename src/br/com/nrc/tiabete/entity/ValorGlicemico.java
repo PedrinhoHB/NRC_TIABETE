@@ -15,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+@SuppressWarnings("serial")
+
 @Entity(name = "ValorGlicemico")
 @Table(name = "T_NRC_VALOR_GLICEMICO")
 @SequenceGenerator(name = "valorGlicemico", sequenceName = "SQ_T_NRC_VALOR_GLICEMICO", allocationSize = 1)

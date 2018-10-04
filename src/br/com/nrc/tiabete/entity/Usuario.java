@@ -16,11 +16,13 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+@SuppressWarnings("serial")
+
 @Entity(name = "Usuario")
 @Table(name = "T_NRC_USUARIO")
 @Inheritance(strategy = InheritanceType.JOINED)
 @SequenceGenerator(name = "usuario", sequenceName = "SQ_T_NRC_USUARIO", allocationSize = 1)
-public abstract class Usuario implements Serializable{
+public abstract class Usuario implements Serializable {
 
 	@Id
 	@Column(name = "cd_usuario")
