@@ -14,10 +14,16 @@ public class ResponsavelDAOImpl extends GenericDAOImpl<Responsavel, Integer> imp
 		super(em);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Dependente> dependentesPorResponsavel(int idResp) {
-		return em.createQuery("select d.codigo, d.nome from ResponsavelDependente rp, Dependente d, Responsavel r "
-				+ "where r.codigo = :idResp", Dependente.class).setParameter("idResp", idResp)
-				.getResultList();
+		return em.createNativeQuery("SELECT D.*, U.*\r\n" + 
+									"FROM T_NRC_RESPONSAVEL_DEPENDETNE RD\r\n" + 
+									"JOIN T_NRC_DEP D\r\n" + 
+									"JOIN T_NRC_USUARIO U\r\n" + 
+									"ON U.CD_USUARIO = D.CD_USUARIO\r\n" + 
+									"ON D.CD_USUARIO = RD.CD_DEPENDENTE\r\n" + 
+									"WHERE CD_RESPONSAVEL LIKE '%" + idResp + "%'", Dependente.class)
+									.getResultList();
 	}
 }
