@@ -39,7 +39,7 @@ public class ResponsavelResource {
 	}
 
 	@GET
-	@Path("depPorResp/{id}")
+	@Path("dependente-por-responsavel/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Dependente> dependentesPorResponsavel(@PathParam("id") int idResp) {
 		return bo.dependentesPorResponsavel(idResp);
