@@ -1,5 +1,6 @@
 package br.com.nrc.tiabete.bo;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -25,6 +26,10 @@ public class ValorGlicemicoBO {
 
 	public ValorGlicemico pesquisar(int codigo) {
 		return dao.pesquisar(codigo);
+	}
+
+	public Collection<Object[]> mediaGlicemicaSemanal(int codigo) {
+		return dao.mediaGlicemicaSemanal(codigo);
 	}
 
 	public void inserir(ValorGlicemico valGlic) throws CommitException {

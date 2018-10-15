@@ -1,5 +1,6 @@
 package br.com.nrc.tiabete.resource;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -42,6 +43,13 @@ public class ValorGlicemicoResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public ValorGlicemico pesquisar(@PathParam("id") int codigo) {
 		return bo.pesquisar(codigo);
+	}
+
+	@GET
+	@Path("media-semanal/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<Object[]> mediaGlicemicaSemanal(@PathParam("id") int codigo) {
+		return bo.mediaGlicemicaSemanal(codigo);
 	}
 
 	@POST
